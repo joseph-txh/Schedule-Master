@@ -1,6 +1,15 @@
 import time
 from data import *
 import schedule
+import os
+
+def scheduleRun():
+    while True:
+        try:
+            schedule.run_pending()
+            time.sleep(1)
+        except:
+            break
 
 DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 
@@ -15,37 +24,12 @@ temp = [empty]*96
 
 
 
-d = Day()
-d.cells[Day.getIndex("14:00")] = physics
-d.cells[Day.getIndex("14:15")] = physics
-d.cells[Day.getIndex("14:30")] = physics
-d.cells[Day.getIndex("14:45")] = physics
-
-d.cells[Day.getIndex("15:00")] = maths
-print(d.getNotify())
-
-def newSchedule():
-    week = Week()
-    
-
-
-
-
-def test():
-    print("test")   
 
 def saveData():
     pass
 
 
-def scheduleRun():
-    while True:
-        try:
-            schedule.run_pending()
-            time.sleep(1)
-        except:
 
-            break
 
 def main():
     while True:

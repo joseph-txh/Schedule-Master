@@ -98,7 +98,7 @@ class Day:
         """Inputs a list of index, returns a list of string indicating the times of that segment that needs to be notified."""
         times = []
         for segment in self.getTimesIndex():
-            times.append(Day.getTime(segment))
+            times.append((Day.getTime(segment),self.cells[segment].getName()))
         return times
         
     def setup(self, listOfCells:list):
@@ -108,10 +108,10 @@ class Day:
         finalString = ""
         for x in self.cells:
             if x.getType() == CellType.EMPTY:
-                finalString += "- "
+                finalString += "-;"
             else:
-                finalString += x.getName() +" "
-        finalString.strip()
+                finalString += x.getName() +";"
+        finalString = finalString[:-1]
         return finalString
 
     @staticmethod
@@ -140,18 +140,20 @@ class Day:
 
 class Week:
     def __init__(self):
-        self.days = [Day()]*7
+        self.days = []
+        for x in range(7):
+            self.days.append(Day())
 
     def loadData(self, inputStr: str):
         daysList = inputStr.split("\n")
         for x in range(len(self.days)):
-            temp = daysList[x].split(" ")
+            temp = daysList[x].split(";")
             newList = []
             for y in range(len(temp)):
-                if y == "-":
+                if temp[y] == "-":
                     newList.append(Empty())
                 else:
-                    newList.append(EventCell(y))
+                    newList.append(EventCell(temp[y]))
             self.days[x].setup(newList)
     
     def saveData(self):
